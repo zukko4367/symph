@@ -1,0 +1,40 @@
+version: "2"
+
+services:
+  php-nginx:
+    build: ./php
+    environment:
+      PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
+      PHP_XDEBUG_ENABLED: 1 # Set 1 to enable.
+      PHP_XHPROF_ENABLED: 0 # Set 1 to enable.
+      NGINX_SERVER_NAME: hostname.loc
+      NGINX_DOCROOT: app/public # Relative path inside the /var/www/html/ directory.
+      VIRTUAL_HOST: hostname.loc
+      HTTPS_METHOD: noredirect
+    working_dir: /var/www/html/app
+    volumes:
+    - ../../:/var/www/html:rw,delegated
+    networks:
+    - local-net
+    - default
+
+  mariadb:
+    image: wodby/mariadb:10.1-2.3.3
+    environment:
+      MYSQL_ROOT_PASSWORD: 12qwasZX
+      MYSQL_DATABASE: symphony
+      MYSQL_USER: symphony
+      MYSQL_PASSWORD: 8SGYZG3y
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-allowed-packet=512M # The simple way to override the mariadb config
+    volumes_from:
+    - php-nginx
+    volumes:
+    - ./docker-runtime/mysql:/var/lib/mysql
+    networks:
+    - local-net
+    - default
+
+# Don't touch that settings
+networks:
+  local-net:
+    external: true

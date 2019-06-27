@@ -1,0 +1,8 @@
+body {
+    background-color: lightgray;
+}
+
+.application-list tr.urgent {
+    background-color: #ff5b62;
+
+}

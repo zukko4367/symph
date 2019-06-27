@@ -1,0 +1,11 @@
+application_list:
+  path: /
+  controller: App\Controller\ApplicationController::all
+
+application_form:
+  path: /application/new
+  controller: App\Controller\ApplicationController::new
+
+application_page:
+  path: /application/view/{id}
+  controller: App\Controller\ApplicationController::view

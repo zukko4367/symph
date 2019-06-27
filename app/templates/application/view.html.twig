@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="application">
+    <h1 class="application__title">{{ application.getTitle }}</h1>
+    <div class="application__info">
+      <span class="application__created">{{ application.getCreated |date("d/m/Y H:i:s") }}</span> |
+      <span class="application__status">{{ application.getHumanStatus }}</span>
+    </div>
+    <div class="application__text">
+      {{ application.getText }}
+    </div>
+
+    <div class="application__status-form">
+      <div>Изменить статус</div>
+      <div class="">
+        {{ form_start(status_edit_form) }}
+        {{ form_widget(status_edit_form) }}
+        {{ form_end(status_edit_form) }}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <a href="{{ path('application_form') }}">Добавить заявку</a>
+  <table class="application-list">
+    <tr>
+      <th>ID</th>
+      <th>Заголовок</th>
+      <th>Время</th>
+      <th>Статус</th>
+    </tr>
+    {% for key, application in applications %}
+      <tr class="{{ application.getPriority }}">
+        <th><a href="{{ path('application_page', {id: application.getId})}}">{{ application.getId() }}</th>
+        <th>{{ application.getTitle }}</th>
+        <th>{{ application.getCreated|date("d/m/Y H:i:s") }}</th>
+        <th>{{ application.getHumanStatus }}</th>
+      </tr>
+
+    {% endfor %}
+  </table>
+
+{% endblock %}
+
